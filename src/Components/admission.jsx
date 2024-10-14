@@ -1,15 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, FormLabel, FormGroup } from 'react-bootstrap';
-// import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdmissionFees(){
-    // const [records,setrecords]=useState([])
-    // useEffect(() => {
-    //     fetch('http://universities.hipolabs.com/search?country=india')  // Correct URL
-    //         .then(response => response.json())  // Call json() method
-    //         .then(data => setrecords(data))
-    //         .catch(err => console.log(err));
-    // }, []);
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate('/QR');
+    };
 
     
     
@@ -23,7 +21,7 @@ export default function AdmissionFees(){
                                 <h2>Admission Online</h2>
 
                                 <p class="help-line content">Help Line
-                                    <span>044-22630670, +917022554041 , +919941985100</span>
+                                    <span>044-22630670, 7022554041 , 9941985100</span>
                                 </p> <span class="help-arrow pulse"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                             </div>
                         </div>
@@ -79,26 +77,26 @@ export default function AdmissionFees(){
                                                     </option>
                                                 ))} */}
                                                 <option value="B.E - Cyber Security">B.E(Cyber Security)</option>
-                                    <option value="B.E - Artificial Intelligence & Machine Learning">B.E(Artificial Intelligence & Machine Learning)</option>
-                                    <option value="B.E - Bio Technology">B.Tech(Bio Technology)</option>
-                                    <option value="B.E - Artificial Intelligence & Data Science">B.E(Artificial Intelligence & Data Science)</option>
-                                    <option value="B.E - Agricultural Engineering">B.E(Agricultural Engineering)</option>
-                                    <option value="B.E(Computer Science and Engineering)">B.E(Computer Science and Engineering)</option>
-                                    <option value="B.E(Electrical & Electronics Engineering)">B.E(Electrical & Electronics Engineering)</option>
-                                    <option value="B.E(Electronics and Communication Engineering)">B.E(Electronics and Communication Engineering)</option>
-                                    <option value="B.E(Electronics and Instrumentation Engineering)">B.E(Electronics and Instrumentation Engineering)</option>
-                                    <option value="B.Tech(Information Technology)">B.Tech(Information Technology)</option>
-                                    <option value="B.E(Mechanical Engineering)">B.E(Mechanical Engineering)</option>
-                                    <option value="B.E(Civil Engineering)">B.E(Civil Engineering)</option>
-                                    <option value="B.Tech(Food Technology)">B.E(Food Technology)</option>
-                                    <option value="B.Tech(Bio-Medical Engineering)">B.E(Bio-Medical Engineering)</option>
-                                    <option value="M.E(Computer Science & Engineering)">M.E(Computer Science & Engineering)</option>
-                                    <option value="M.E(Environmental Engineering)">M.E(Environmental Engineering)</option>
-                                    <option value="M.E(Power Electronics & Drives)">M.E(Power Electronics & Drives)</option>
-                                    <option value="M.E(Manufacturing Engineering)">M.E(Manufacturing Engineering)</option>
-                                    <option value="M.E(Electronics & Communication Engineering)">M.E(Electronics & Communication Engineering)</option>
-                                    <option value="MBA(Master of Business Administration)">MBA(Master of Business Administration)</option>
-                                    <option value="MCA(Master of Computer Applications)">MCA(Master of Computer Applications)</option>
+                                                <option value="B.E - Artificial Intelligence & Machine Learning">B.E(Artificial Intelligence & Machine Learning)</option>
+                                                <option value="B.E - Bio Technology">B.Tech(Bio Technology)</option>
+                                                <option value="B.E - Artificial Intelligence & Data Science">B.E(Artificial Intelligence & Data Science)</option>
+                                                <option value="B.E - Agricultural Engineering">B.E(Agricultural Engineering)</option>
+                                                <option value="B.E(Computer Science and Engineering)">B.E(Computer Science and Engineering)</option>
+                                                <option value="B.E(Electrical & Electronics Engineering)">B.E(Electrical & Electronics Engineering)</option>
+                                                <option value="B.E(Electronics and Communication Engineering)">B.E(Electronics and Communication Engineering)</option>
+                                                <option value="B.E(Electronics and Instrumentation Engineering)">B.E(Electronics and Instrumentation Engineering)</option>
+                                                <option value="B.Tech(Information Technology)">B.Tech(Information Technology)</option>
+                                                <option value="B.E(Mechanical Engineering)">B.E(Mechanical Engineering)</option>
+                                                <option value="B.E(Civil Engineering)">B.E(Civil Engineering)</option>
+                                                <option value="B.Tech(Food Technology)">B.E(Food Technology)</option>
+                                                <option value="B.Tech(Bio-Medical Engineering)">B.E(Bio-Medical Engineering)</option>
+                                                <option value="M.E(Computer Science & Engineering)">M.E(Computer Science & Engineering)</option>
+                                                <option value="M.E(Environmental Engineering)">M.E(Environmental Engineering)</option>
+                                                <option value="M.E(Power Electronics & Drives)">M.E(Power Electronics & Drives)</option>
+                                                <option value="M.E(Manufacturing Engineering)">M.E(Manufacturing Engineering)</option>
+                                                <option value="M.E(Electronics & Communication Engineering)">M.E(Electronics & Communication Engineering)</option>
+                                                <option value="MBA(Master of Business Administration)">MBA(Master of Business Administration)</option>
+                                                <option value="MCA(Master of Computer Applications)">MCA(Master of Computer Applications)</option>
                                             </Form.Select>
 
                                         </FormGroup>
@@ -132,8 +130,8 @@ export default function AdmissionFees(){
                                             <button className="one" style={{ display: 'block', marginBottom: '10px' }}>
                                                 PAY USING <b>RAZORPAY</b>
                                             </button>
-                                            <button className="one" style={{ display: 'block', marginBottom: '10px' }}>
-                                                PAY USING <b>QR CODE</b>
+                                            <button className="one" style={{ display: 'block' }} onClick={handleButtonClick}>
+                                                    PAY USING <b>QR CODE</b>
                                             </button>
                                         </div>
                                     </Col>

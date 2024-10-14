@@ -1,8 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, FormLabel, FormGroup } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function ExamFees(){
+export default function OtherFees(){
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate('/QR');
+    };
     return <>
         <Container fluid>
             <Row>
@@ -10,11 +16,14 @@ export default function ExamFees(){
                     <Col sm={6}>
                         <div className="form-section">
                             <div class="all-title quote-title qu-new">
-                                <h2>Exam Fee Payment</h2>
+                                <h2>Other Fee Payment</h2>
 
                                 <p class="help-line content">Help Line
-                                    <span>044-22630670, +917022554041 , +919941985100</span>
-                                </p> <span class="help-arrow pulse"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    <span>044-22630670, 7022554041 , 9941985100</span>
+                                </p> 
+                                <span class="help-arrow pulse">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </span>
                             </div>
                         </div>
                         <div class="spinner scroll-down"> <a class="animate"></a> </div>
@@ -63,7 +72,7 @@ export default function ExamFees(){
                                             <FormLabel>Pay for:</FormLabel>
                                             <Form.Select aria-label="Default select example"required>
                                                 
-                                                <option value="1">Exam Fees</option>
+                                                <option value="1">Other Fees</option>
                                                 
                                             </Form.Select>
                                         </FormGroup>
@@ -86,8 +95,8 @@ export default function ExamFees(){
                                             <button className="one" style={{ display: 'block' }}>
                                                 PAY USING <b>RAZORPAY</b>
                                             </button>
-                                            <button className="one" style={{ display: 'block' }}>
-                                                PAY USING <b>QR CODE</b>
+                                            <button className="one" style={{ display: 'block' }} onClick={handleButtonClick}>
+                                                    PAY USING <b>QR CODE</b>
                                             </button>
                                         </div>
                                     </Col>
