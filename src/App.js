@@ -8,10 +8,11 @@ import Admission from './Components/admission';
 import QR from './Components/QRcode';
 function App() {
   return (
-    <Router>
+        <Router>
             <Header />
             <Routes>
                 <Route path="/" element={<Tution />} />
+                <Route path="/testdomain/fees-payment/" element={<Tution />} />
                 <Route path="/tution" element={<Tution />} />
                 <Route path="/exam" element={<Exam />} />
                 <Route path="/other" element={<Other />} />

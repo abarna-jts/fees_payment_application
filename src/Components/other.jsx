@@ -1,14 +1,71 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, FormLabel, FormGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
 
 export default function OtherFees(){
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        registerNumber: "",
+        fullName: "",
+        phone: "",
+        email: "",
+        payFor: "",
+        amount: "",
+      });
 
-    const handleButtonClick = () => {
-        navigate('/QR');
-    };
+      const [errors, setErrors] = useState({});
+
+      // Handle input change
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+      };
+    
+      // Validation function
+      const validate = () => {
+        let errors = {};
+        
+        const phonePattern = /^\d{10}$/;
+        const emailPattern = /\S+@\S+\.\S+/;
+    
+        if (!formData.registerNumber.trim()) {
+          errors.registerNumber = "Register Number is required";
+        }
+        if (!formData.fullName.trim()) {
+          errors.fullName = "Full Name is required";
+        }
+        if (!formData.phone.trim() || !phonePattern.test(formData.phone)) {
+          errors.phone = "Phone number must be 10 digits";
+        }
+        if (!formData.email.trim() || !emailPattern.test(formData.email)) {
+          errors.email = "Email is invalid";
+        }
+        if (!formData.payFor) {
+          errors.payFor = "You must select a payment option";
+        }
+        if (!formData.amount.trim()) {
+          errors.amount = "Amount is required";
+        }
+    
+        setErrors(errors);
+    
+        return Object.keys(errors).length === 0;
+      };
+
+      // Handle button click
+        const handleButtonClick = (e) => {
+            e.preventDefault();
+            if (validate()) {
+                navigate('/QR');
+            // Proceed with payment or further actions here
+            } else {
+            alert("Please fill in all required fields correctly.");
+            }
+        };
     return <>
         <Container fluid>
             <Row>
@@ -34,58 +91,114 @@ export default function OtherFees(){
                     <Container style={{padding: 0}}>
                         <Form>
                             <Row>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
-                                        <FormGroup style={{ display: 'flex' }}>
+                            <Col sm={12}>
+                                        <Col sm={6} className="form-class">
+                                            <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Register Number:</FormLabel>
-                                            <Form.Control type="number" placeholder="Your Register Number" required/>
-                                        </FormGroup>
+                                            <Form.Control
+                                                type="number"
+                                                placeholder="Your Register Number"
+                                                name="registerNumber"
+                                                value={formData.registerNumber}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                            
+                                            </FormGroup>
+                                            {errors.registerNumber && (
+                                                <p style={{ color: "red" }}>{errors.registerNumber}</p>
+                                            )}
+                                        </Col>
                                     </Col>
-                                </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
-                                        <FormGroup style={{ display: 'flex' }}>
+                                    <Col sm={12}>
+                                        <Col sm={6} className="form-class">
+                                            <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Full Name:</FormLabel>
-                                            <Form.Control type="text" placeholder="Your Name" required/>
-                                        </FormGroup>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Your Name"
+                                                name="fullName"
+                                                value={formData.fullName}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                            
+                                            </FormGroup>
+                                            {errors.fullName && (
+                                                <p style={{ color: "red" }}>{errors.fullName}</p>
+                                            )}
+                                        </Col>
                                     </Col>
-                                </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
-                                        <FormGroup style={{ display: 'flex' }}>
+                                    <Col sm={12}>
+                                        <Col sm={6} className="form-class">
+                                            <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Phone:</FormLabel>
-                                            <Form.Control type="number" placeholder="Your Phone Number" required/>
-                                        </FormGroup>
+                                            <Form.Control
+                                                type="number"
+                                                placeholder="Your Phone Number"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                            
+                                            </FormGroup>
+                                            {errors.phone && <p style={{ color: "red" }}>{errors.phone}</p>}
+                                        </Col>
                                     </Col>
-                                </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
-                                        <FormGroup style={{ display: 'flex' }}>
+                                    <Col sm={12}>
+                                        <Col sm={6} className="form-class">
+                                            <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Email Id:</FormLabel>
-                                            <Form.Control type="email" placeholder="Your Email Id" required/>
-                                        </FormGroup>
+                                            <Form.Control
+                                                type="email"
+                                                placeholder="Your Email Id"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                           
+                                            </FormGroup>
+                                            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+                                        </Col>
                                     </Col>
-                                </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
-                                        <FormGroup style={{ display: 'flex' }}>
+                                    <Col sm={12}>
+                                        <Col sm={6} className="form-class">
+                                            <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Pay for:</FormLabel>
-                                            <Form.Select aria-label="Default select example"required>
-                                                
+                                            <Form.Select
+                                                aria-label="Default select example"
+                                                name="payFor"
+                                                value={formData.payFor}
+                                                onChange={handleChange}
+                                                required
+                                            >
+                                                <option value="">Select Payment Option</option>
                                                 <option value="1">Other Fees</option>
-                                                
                                             </Form.Select>
-                                        </FormGroup>
+                                            
+                                            </FormGroup>
+                                            {errors.payFor && <p style={{ color: "red" }}>{errors.payFor}</p>}
+                                        </Col>
                                     </Col>
-                                </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
-                                        <FormGroup style={{ display: 'flex' }}>
+                                    <Col sm={12}>
+                                        <Col sm={6} className="form-class">
+                                            <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Amount:</FormLabel>
-                                            <Form.Control type="number" placeholder="Enter Amount" required/>
-                                        </FormGroup>
+                                            <Form.Control
+                                                type="number"
+                                                placeholder="Enter Amount"
+                                                name="amount"
+                                                value={formData.amount}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                            
+                                            </FormGroup>
+                                            {errors.amount && <p style={{ color: "red" }}>{errors.amount}</p>}
+                                        </Col>
                                     </Col>
-                                </Col>
                                 <Col sm={12}>
                                     <Col sm={6} className="form-class form-btn">
                                         <div>
@@ -95,9 +208,13 @@ export default function OtherFees(){
                                             <button className="one" style={{ display: 'block' }}>
                                                 PAY USING <b>RAZORPAY</b>
                                             </button>
-                                            <button className="one" style={{ display: 'block' }} onClick={handleButtonClick}>
+                                            <button
+                                                    className="one"
+                                                    style={{ display: "block", marginBottom: "10px" }}
+                                                    onClick={handleButtonClick}
+                                                >
                                                     PAY USING <b>QR CODE</b>
-                                            </button>
+                                                </button>
                                         </div>
                                     </Col>
                                 </Col>
