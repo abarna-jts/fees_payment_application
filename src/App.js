@@ -1,14 +1,26 @@
-// import logo from './logo.svg';
 import './App.css';
-import Header from './Components/header';
-// import TutionFess from './Components/tution_fees';
-
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './Components/Header';
+import Tution from './Components/tution';
+import Exam from './Components/exam';
+import Other from './Components/other';
+import Admission from './Components/admission';
+import QR from './Components/QRcode';
+import { HashRouter as  Router, Route, Routes } from 'react-router-dom';
 function App() {
   return (
-    <div className="App">
-      <Header/>
-      {/* <TutionFess/> */}
-    </div>
+        <Router>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Tution />} />
+                <Route path="/testdomain/fees-payment/" element={<Tution />} />
+                <Route path="/tution" element={<Tution />} />
+                <Route path="/exam" element={<Exam />} />
+                <Route path="/other" element={<Other />} />
+                <Route path="/admission" element={<Admission />} />
+                <Route path="/QR" element={<QR />} />
+            </Routes>
+        </Router>
   );
 }
 
