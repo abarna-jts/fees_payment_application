@@ -72,14 +72,47 @@ export default function AdmissionFees(){
             alert("Please fill in all required fields correctly.");
             }
         };
-
+        const handleformsubmittion = (e) => {
+            e.preventDefault();
+            if (validate()) {
+                // If form validation passes
+                fetch('http://localhost/payment_form_db_php/index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        registerNumber: formData.registerNumber,
+                        fullName: formData.fullName,
+                        phone: formData.phone,
+                        email: formData.email,
+                        payFor: formData.payFor,
+                        amount: formData.amount,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Form data submitted successfully');
+                        navigate('/QR'); // Navigate to QR page on successful submission
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert("Please fill in all required fields correctly.");
+            }
+        };
     
     
     return <>
         <Container fluid>
             <Row>
                 <Col className="img-background">
-                    <Col sm={6} className="title-header">
+                    <Col sm={8} className="title-header">
                         <div className="form-section">
                             <div class="all-title quote-title qu-new">
                                 <h2>Admission Online</h2>
@@ -98,8 +131,8 @@ export default function AdmissionFees(){
                         <Form>
                             <Row>
                                 
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Full Name:</FormLabel>
                                             <Form.Control
@@ -117,8 +150,8 @@ export default function AdmissionFees(){
                                             )}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Phone:</FormLabel>
                                             <Form.Control
@@ -134,8 +167,8 @@ export default function AdmissionFees(){
                                             {errors.phone && <p style={{ color: "red" }}>{errors.phone}</p>}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Email Id:</FormLabel>
                                             <Form.Control
@@ -151,8 +184,8 @@ export default function AdmissionFees(){
                                             {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Address:</FormLabel>
                                             <Form.Control
@@ -170,8 +203,8 @@ export default function AdmissionFees(){
                                             )}
                                         </Col>
                                     </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
+                                <Col sm={8}>
+                                    <Col sm={9} className="form-class">
                                         <FormGroup style={{ display: 'flex' }}>
                                             <FormLabel>Course Applied:</FormLabel>
                                             <Form.Select aria-label="Default select example"
@@ -207,8 +240,8 @@ export default function AdmissionFees(){
                                         {errors.course_details && <p style={{ color: "red" }}>{errors.course_details}</p>}
                                     </Col>
                                 </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class">
+                                <Col sm={8}>
+                                    <Col sm={9} className="form-class">
                                         <FormGroup style={{ display: "flex" }}>
                                         <FormLabel>Pay for:</FormLabel>
                                         <Form.Select
@@ -226,8 +259,8 @@ export default function AdmissionFees(){
                                         {errors.payFor && <p style={{ color: "red" }}>{errors.payFor}</p>}
                                     </Col>
                                 </Col>
-                                <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Amount:</FormLabel>
                                             <Form.Control
@@ -243,8 +276,8 @@ export default function AdmissionFees(){
                                             {errors.amount && <p style={{ color: "red" }}>{errors.amount}</p>}
                                         </Col>
                                     </Col>
-                                <Col sm={12}>
-                                    <Col sm={6} className="form-class form-btn">
+                                <Col sm={8}>
+                                    <Col sm={9} className="form-class form-btn">
                                         <div>
                                             <button className="one" style={{ display: 'block'}}>
                                                 PAY USING <b>ICICI BANK</b>
@@ -259,6 +292,13 @@ export default function AdmissionFees(){
                                                     >
                                                         PAY USING <b>QR CODE</b>
                                                     </button>
+                                                    <button
+                                                    className="one"
+                                                    style={{ display: "block" }}
+                                                    onClick={handleformsubmittion}
+                                                >
+                                                    SUBMIT & <b>PAY LATER</b>
+                                                </button>
                                         </div>
                                     </Col>
                                 </Col>

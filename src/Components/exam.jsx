@@ -65,11 +65,47 @@ export default function ExamFees() {
             alert("Please fill in all required fields correctly.");
             }
         };
+        const handleformsubmittion = (e) => {
+            e.preventDefault();
+            if (validate()) {
+                // If form validation passes
+                fetch('http://localhost/payment_form_db_php/index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        registerNumber: formData.registerNumber,
+                        fullName: formData.fullName,
+                        phone: formData.phone,
+                        email: formData.email,
+                        payFor: formData.payFor,
+                        amount: formData.amount,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Form data submitted successfully');
+                        navigate('/QR'); // Navigate to QR page on successful submission
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert("Please fill in all required fields correctly.");
+            }
+        };
+
+
     return <>
         <Container fluid>
             <Row>
                 <Col className="img-background">
-                    <Col sm={6}>
+                    <Col sm={8}>
                         <div className="form-section">
                             <div class="all-title quote-title qu-new">
                                 <h2>Exam Fee Payment</h2>
@@ -86,8 +122,8 @@ export default function ExamFees() {
                     <Container style={{ padding: 0 }}>
                         <Form>
                             <Row>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Register Number:</FormLabel>
                                             <Form.Control
@@ -105,8 +141,8 @@ export default function ExamFees() {
                                             )}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Full Name:</FormLabel>
                                             <Form.Control
@@ -124,8 +160,8 @@ export default function ExamFees() {
                                             )}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Phone:</FormLabel>
                                             <Form.Control
@@ -141,8 +177,8 @@ export default function ExamFees() {
                                             {errors.phone && <p style={{ color: "red" }}>{errors.phone}</p>}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Email Id:</FormLabel>
                                             <Form.Control
@@ -158,8 +194,8 @@ export default function ExamFees() {
                                             {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Pay for:</FormLabel>
                                             <Form.Select
@@ -177,8 +213,8 @@ export default function ExamFees() {
                                             {errors.payFor && <p style={{ color: "red" }}>{errors.payFor}</p>}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class">
                                             <FormGroup style={{ display: "flex" }}>
                                             <FormLabel>Amount:</FormLabel>
                                             <Form.Control
@@ -194,8 +230,8 @@ export default function ExamFees() {
                                             {errors.amount && <p style={{ color: "red" }}>{errors.amount}</p>}
                                         </Col>
                                     </Col>
-                                    <Col sm={12}>
-                                        <Col sm={6} className="form-class form-btn">
+                                    <Col sm={8}>
+                                        <Col sm={9} className="form-class form-btn">
                                             <div>
                                                 <button className="one" style={{ display: 'block' }}>
                                                     PAY USING <b>ICICI BANK</b>
@@ -210,6 +246,13 @@ export default function ExamFees() {
                                                     >
                                                         PAY USING <b>QR CODE</b>
                                                     </button>
+                                                    <button
+                                                    className="one"
+                                                    style={{ display: "block" }}
+                                                    onClick={handleformsubmittion}
+                                                >
+                                                    SUBMIT & <b>PAY LATER</b>
+                                                </button>
                                             </div>
                                         </Col>
                                     </Col>
